@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -80,13 +81,14 @@
         <TextView
             android:visibility="invisible"
             android:id="@+id/result"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/green"
             android:padding="10dp"
-            android:textSize="@dimen/medium_text_size"
-            tools:text="Result 96%" />
+            android:textSize="@dimen/small_text_size"
+            tools:text="The same person is in both photos! Confidence 0.9%" />
     </LinearLayout>
 </ScrollView>
 

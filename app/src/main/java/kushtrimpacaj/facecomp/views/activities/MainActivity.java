@@ -1,26 +1,30 @@
 package kushtrimpacaj.facecomp.views.activities;
 
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
-import android.util.Log;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
 
-import java.io.File;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import kushtrimpacaj.facecomp.FaceCompApp;
 import kushtrimpacaj.facecomp.R;
 import kushtrimpacaj.facecomp.presenters.MainPresenter;
-import kushtrimpacaj.facecomp.view_interfaces.MainView;
+import kushtrimpacaj.facecomp.views.view_interfaces.MainView;
 
 public class MainActivity extends MvpActivity<MainView, MainPresenter> implements MainView {
 
@@ -39,17 +43,43 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     @Bind(R.id.result)
     TextView result;
 
+    @Bind(R.id.scrollView)
+    ScrollView scrollView;
+
+    @ColorInt
+    int imageBackgroundColor;
+    @ColorInt
+    int transparentColor;
+
+    NumberFormat percentageFormater = new DecimalFormat("00.00");
+
+
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        progressDialog = getProgressDialogInstance();
+        imageBackgroundColor = ContextCompat.getColor(this, R.color.image_placeholder);
+        transparentColor = ContextCompat.getColor(this, android.R.color.transparent);
+
+    }
+
+    private ProgressDialog getProgressDialogInstance() {
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Processing...");
+        progressDialog.setMessage("Please wait.");
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(true);
+        return progressDialog;
     }
 
     @NonNull
     @Override
     public MainPresenter createPresenter() {
-        return new MainPresenter();
+        return ((FaceCompApp) getApplication()).getApplicationComponent().mainPresenter();
     }
 
 
@@ -69,43 +99,71 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     }
 
     @Override
-    public void showFirstImage(File photo) {
-        firstImageLabel.setVisibility(View.INVISIBLE);
-        showPhotoInImageView(photo, firstImageView);
+    public void showFirstImage(Bitmap photo) {
+        showImage(firstImageView, firstImageLabel, photo);
     }
 
     @Override
-    public void showSecondImage(File photo) {
-        secondImageLabel.setVisibility(View.INVISIBLE);
-        showPhotoInImageView(photo, secondImageView);
+    public void showSecondImage(Bitmap photo) {
+        showImage(secondImageView, secondImageLabel, photo);
     }
 
-    private void showPhotoInImageView(File photo, ImageView imageView) {
-        if (photo.exists()) {
-            Bitmap myBitmap = BitmapFactory.decodeFile(photo.getAbsolutePath());
-            imageView.setImageBitmap(myBitmap);
+    private void showImage(ImageView imageView, TextView label, Bitmap photo) {
+        label.setVisibility(View.INVISIBLE);
+        imageView.setImageBitmap(photo);
+        imageView.setBackgroundColor(transparentColor);
+        result.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void showResult(boolean isIdentical, double percentage) {
+        if (isIdentical) {
+            result.setText(String.format(getString(R.string.samePersonResult), percentageFormater.format(percentage * 100)));
         } else {
-            Log.d("photo", "doesnt exist");
+            result.setText(String.format(getString(R.string.differentPersonResult), percentageFormater.format((1 - percentage) * 100)));
         }
-    }
-
-
-    @Override
-    public void showResult(double percentage) {
-        result.setText(String.format("Result: %s", percentage));
         result.setVisibility(View.VISIBLE);
+        scrollView.fullScroll(View.FOCUS_DOWN);
     }
 
     @Override
-    public Context getContext() {
-        return this;
+    public void showProgressDialog(String title) {
+        progressDialog.setTitle(title);
+        progressDialog.show();
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        progressDialog.hide();
+    }
+
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void removeFirstImage() {
+        removeImage(firstImageView, firstImageLabel);
+    }
+
+    @Override
+    public void removeSecondImage() {
+        removeImage(secondImageView, secondImageLabel);
+    }
+
+    private void removeImage(ImageView imageView, TextView label) {
+        label.setVisibility(View.VISIBLE);
+        imageView.setImageBitmap(null);
+        imageView.setBackgroundColor(imageBackgroundColor);
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            presenter.onIntentResult(requestCode);
+            presenter.onChoosePhotoIntentResult(requestCode);
         }
     }
 }
