@@ -23,10 +23,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kushtrimpacaj.facecomp.FaceCompApp;
 import kushtrimpacaj.facecomp.R;
-import kushtrimpacaj.facecomp.presenters.MainPresenter;
-import kushtrimpacaj.facecomp.views.view_interfaces.MainView;
+import kushtrimpacaj.facecomp.presenters.FaceComparisonPresenter;
+import kushtrimpacaj.facecomp.views.view_interfaces.FaceComparisonView;
 
-public class MainActivity extends MvpActivity<MainView, MainPresenter> implements MainView {
+public class FaceComparisonActivity extends MvpActivity<FaceComparisonView, FaceComparisonPresenter> implements FaceComparisonView {
 
     @Bind(R.id.firstImageView)
     ImageView firstImageView;
@@ -78,7 +78,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 
     @NonNull
     @Override
-    public MainPresenter createPresenter() {
+    public FaceComparisonPresenter createPresenter() {
         return ((FaceCompApp) getApplication()).getApplicationComponent().mainPresenter();
     }
 

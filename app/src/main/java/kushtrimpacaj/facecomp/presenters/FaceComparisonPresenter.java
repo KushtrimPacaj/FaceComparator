@@ -18,13 +18,13 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import kushtrimpacaj.facecomp.interactors.FaceApiInteractor;
-import kushtrimpacaj.facecomp.views.view_interfaces.MainView;
+import kushtrimpacaj.facecomp.views.view_interfaces.FaceComparisonView;
 
 /**
  * Created by Kushtrim on 10.01.2016.
  */
 @SuppressWarnings("ConstantConditions")
-public class MainPresenter extends MvpBasePresenter<MainView> {
+public class FaceComparisonPresenter extends MvpBasePresenter<FaceComparisonView> {
     public static final int FIRST_PHOTO_INDEX = 0;
     public static final int SECOND_PHOTO_INDEX = 1;
 
@@ -37,7 +37,7 @@ public class MainPresenter extends MvpBasePresenter<MainView> {
 
 
     @Inject
-    public MainPresenter(FaceApiInteractor faceApiInteractor, Context applicationContext) {
+    public FaceComparisonPresenter(FaceApiInteractor faceApiInteractor, Context applicationContext) {
         this.faceApiInteractor = faceApiInteractor;
         this.applicationContext = applicationContext;
     }

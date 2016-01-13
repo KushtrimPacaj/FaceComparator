@@ -8,7 +8,7 @@ import com.hannesdorfmann.mosby.mvp.MvpView;
 /**
  * Created by Kushtrim on 10.01.2016.
  */
-public interface MainView extends MvpView {
+public interface FaceComparisonView extends MvpView {
 
     void showFirstImage(Bitmap photo);
 
