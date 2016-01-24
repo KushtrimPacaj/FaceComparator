@@ -11,6 +11,5 @@ import kushtrimpacaj.facecomp.presenters.FaceComparisonPresenter;
 @Singleton
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
-
     FaceComparisonPresenter faceComparisonPresenter();
 }

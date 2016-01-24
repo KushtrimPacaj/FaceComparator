@@ -45,12 +45,10 @@ public class FaceComparisonPresenter extends MvpBasePresenter<FaceComparisonView
 
     public void onChooseFirstPhoto() {
         dispatchTakePictureIntent(FIRST_PHOTO_INDEX);
-
     }
 
     public void onChooseSecondPhoto() {
         dispatchTakePictureIntent(SECOND_PHOTO_INDEX);
-
     }
 
     public void onComparePhotos() {

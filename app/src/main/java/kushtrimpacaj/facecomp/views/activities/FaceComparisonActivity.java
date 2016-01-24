@@ -79,7 +79,7 @@ public class FaceComparisonActivity extends MvpActivity<FaceComparisonView, Face
     @NonNull
     @Override
     public FaceComparisonPresenter createPresenter() {
-        return ((FaceCompApp) getApplication()).getApplicationComponent().mainPresenter();
+        return ((FaceCompApp) getApplication()).getApplicationComponent().faceComparisonPresenter();
     }
 
 
