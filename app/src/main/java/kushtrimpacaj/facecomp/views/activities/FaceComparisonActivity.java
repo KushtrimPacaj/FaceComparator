@@ -51,6 +51,12 @@ public class FaceComparisonActivity extends MvpActivity<FaceComparisonView, Face
     @ColorInt
     int transparentColor;
 
+    @ColorInt
+            int matchColor;
+
+    @ColorInt
+            int mismatchColor;
+
     NumberFormat percentageFormater = new DecimalFormat("00.00");
 
 
@@ -64,6 +70,8 @@ public class FaceComparisonActivity extends MvpActivity<FaceComparisonView, Face
         progressDialog = getProgressDialogInstance();
         imageBackgroundColor = ContextCompat.getColor(this, R.color.image_placeholder);
         transparentColor = ContextCompat.getColor(this, android.R.color.transparent);
+        matchColor = ContextCompat.getColor(this, R.color.green);
+        mismatchColor = ContextCompat.getColor(this, R.color.red);
 
     }
 
@@ -118,8 +126,10 @@ public class FaceComparisonActivity extends MvpActivity<FaceComparisonView, Face
     @Override
     public void showResult(boolean isIdentical, double percentage) {
         if (isIdentical) {
+            result.setBackgroundColor(matchColor);
             result.setText(String.format(getString(R.string.samePersonResult), percentageFormater.format(percentage * 100)));
         } else {
+            result.setBackgroundColor(mismatchColor);
             result.setText(String.format(getString(R.string.differentPersonResult), percentageFormater.format((1 - percentage) * 100)));
         }
         result.setVisibility(View.VISIBLE);

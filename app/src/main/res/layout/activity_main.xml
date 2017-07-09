@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/green"
+            android:background="@color/green"
             android:padding="10dp"
             android:textSize="@dimen/small_text_size"
             tools:text="The same person is in both photos! Confidence 0.9%" />
