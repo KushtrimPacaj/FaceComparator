@@ -29,7 +29,7 @@ public class ApplicationModule {
     @Provides
     @Singleton
     FaceServiceClient provideFaceApiClient() {
-        return new FaceServiceRestClient(application.getString(R.string.face_api_key));
+        return new FaceServiceRestClient("https://westcentralus.api.cognitive.microsoft.com/face/v1.0",application.getString(R.string.face_api_key));
     }
 
     @Provides
