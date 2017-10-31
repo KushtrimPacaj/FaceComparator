@@ -3,7 +3,7 @@
     <string name="firstPhoto_description">Click here to take the first photo</string>
     <string name="secondPhoto_description">Click here to take the second photo</string>
     <string name="comparePhotos">Compare photos</string>
-    <string name="face_api_key">fe9570153eb74ff889c819f1145ce6f8</string>
+    <string name="face_api_key">4c924424cc824c82848454114e29e98a</string>
     <string name="samePersonResult" formatted ="false">The same person is in both photos! The confidence is: %s%%</string>
     <string name="differentPersonResult" formatted ="false">Different person! The confidence is: %s%%</string>
 </resources>
