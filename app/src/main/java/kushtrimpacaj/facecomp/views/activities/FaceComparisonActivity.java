@@ -4,9 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -18,7 +18,7 @@ import com.hannesdorfmann.mosby.mvp.MvpActivity;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kushtrimpacaj.facecomp.FaceCompApp;
@@ -28,22 +28,22 @@ import kushtrimpacaj.facecomp.views.view_interfaces.FaceComparisonView;
 
 public class FaceComparisonActivity extends MvpActivity<FaceComparisonView, FaceComparisonPresenter> implements FaceComparisonView {
 
-    @Bind(R.id.firstImageView)
+    @BindView(R.id.firstImageView)
     ImageView firstImageView;
 
-    @Bind(R.id.firstImageLabel)
+    @BindView(R.id.firstImageLabel)
     TextView firstImageLabel;
 
-    @Bind(R.id.secondImageView)
+    @BindView(R.id.secondImageView)
     ImageView secondImageView;
 
-    @Bind(R.id.secondImageLabel)
+    @BindView(R.id.secondImageLabel)
     TextView secondImageLabel;
 
-    @Bind(R.id.result)
+    @BindView(R.id.result)
     TextView result;
 
-    @Bind(R.id.scrollView)
+    @BindView(R.id.scrollView)
     ScrollView scrollView;
 
     @ColorInt
@@ -172,6 +172,7 @@ public class FaceComparisonActivity extends MvpActivity<FaceComparisonView, Face
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             presenter.onChoosePhotoIntentResult(requestCode);
         }

@@ -1,17 +1,20 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 29
 
     defaultConfig {
         applicationId "kushtrimpacaj.facecomp"
-        minSdkVersion 16
-        targetSdkVersion 23
+        minSdkVersion 22
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -21,16 +24,18 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.hannesdorfmann.mosby:mvp:2.0.0'
-    compile 'com.microsoft.projectoxford:face:1.0.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.hannesdorfmann.mosby:mvp:2.0.1'
+    implementation 'com.microsoft.projectoxford:face:1.4.3'
+
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife:10.1.0'
 
     // Dagger 2 and Compiler
-    compile 'com.google.dagger:dagger:2.0.1'
-    apt "com.google.dagger:dagger-compiler:2.0.1"
+    implementation 'com.google.dagger:dagger:2.0.1'
+    annotationProcessor "com.google.dagger:dagger-compiler:2.0.1"
 
     // Needed for @Generated annotation (missing in Java <= 1.6; therefore, Android)
-    compile 'javax.annotation:jsr250-api:1.0'
+    implementation 'javax.annotation:jsr250-api:1.0'
 }
